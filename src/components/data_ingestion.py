@@ -2,6 +2,7 @@ import os
 import sys
 from src.logger import logging
 from src.exception import CustomException
+from src.utils import save_object
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
@@ -53,7 +54,6 @@ if __name__ == '__main__':
     train_data,test_data = obj.initate_data_ingestion()
 
     data_tranformation = DataTransformation()
-    train_arr,test_arr,_ = data_tranformation.intiate_data_transformationw(train_data,test_data)
-
+    train_arr,test_arr= data_tranformation.initiate_data_transformation(train_data,test_data)
     modeltrianer = ModelTrainer()
     print(modeltrianer.intiate_model_trainer(train_arr,test_arr))

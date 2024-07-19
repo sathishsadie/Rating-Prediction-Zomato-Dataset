@@ -3,13 +3,11 @@ import os
 import sys
 from dataclasses import dataclass
 
-from sklearn.ensemble import (
-    GradientBoostingRegressor,
-    RandomForestRegressor
-)
+from sklearn.ensemble import GradientBoostingRegressor,RandomForestRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsRegressor
 
 from src.exception import CustomException
 from src.logger import logging 
@@ -41,13 +39,14 @@ class ModelTrainer:
                 # 'SVR': SVR(),
                 # 'AdaBoost Regressor': AdaBoostRegressor(),
                 # 'Gradient Boosting': GradientBoostingRegressor()
+                'KNN':KNeighborsRegressor()
                 }
             
             params={
                 "Decision Tree": {
                     'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
-                    'splitter':['best','random'],
-                    'max_features':['sqrt','log2'],
+                    # 'splitter':['best','random'],
+                    # 'max_features':['sqrt','log2'],
                 },
                 # "Random Forest":{
                 #     # 'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
@@ -64,6 +63,14 @@ class ModelTrainer:
                 #     'n_estimators': [8,16,32,64,128,256]
                 # },
                 "Linear Regression":{},
+                "KNN":{
+                        'n_neighbors': [3, 5, 7, 9, 11],
+                        # 'weights': ['uniform', 'distance'],
+                        # 'algorithm': ['auto', 'ball_tree', 'kd_tree', 'brute'],
+                        # 'leaf_size': [20, 30, 40, 50],
+                        # 'p': [1, 2],
+                        # 'metric': ['minkowski', 'euclidean', 'manhattan']
+                }
             }
 
 

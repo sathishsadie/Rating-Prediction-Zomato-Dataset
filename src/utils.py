@@ -1,8 +1,6 @@
 import os
 import sys
-import numpy as np
 import pickle
-import pandas as pd
 from logger import logging
 from src.exception import CustomException
 from sklearn.metrics import r2_score
@@ -15,8 +13,10 @@ def save_object(filepath,obj):
     try : 
         dir_path = os.path.dirname(filepath)
         os.makedirs(dir_path,exist_ok=True)
-        with open(filepath,'wb') as f:
-            pickle.dump(obj,f)
+        with open(filepath, 'wb') as file:
+        # Dump the data using the highest protocol
+            pickle.dump(obj, file, protocol=pickle.HIGHEST_PROTOCOL)
+        # pickle.dump(obj,filepath,protocol=5)
 
     except Exception as e:
         raise CustomException(e,sys)
@@ -49,15 +49,5 @@ def evaluate_models(X_train, y_train,X_test,y_test,models,param):
             report[list(models.keys())[i]] = test_model_score
 
         return report
-    except Exception as e:
-        raise CustomException(e,sys)
-    
-
-
-
-def load_object(filepath):
-    try:
-        with open(filepath,'rb') as f:
-            return pickle.load(f)
     except Exception as e:
         raise CustomException(e,sys)

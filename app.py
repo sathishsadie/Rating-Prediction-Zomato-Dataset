@@ -3,7 +3,10 @@ from nltk.corpus import stopwords
 import re
 import pandas as pd
 import os
-import pickle
+import joblib
+from src.logger import logging
+
+
 
 st.title('Zomato Rating Prediction..')
 
@@ -33,7 +36,7 @@ preprocessor_path = os.path.join(current_dir, "models/preprocessor.pkl")
 datas = pd.read_csv('data/zomato.csv')
 nums = ['votes','approx_cost(for two people)']
 cat = ['online_order', 'book_table', 'rest_type',  'listed_in(type)', 'listed_in(city)']
-tex = ['dish_liked','cuisines']
+tex = ['cuisines']
 
 
 
@@ -45,22 +48,29 @@ lis.append([s1])
 for i  in cat:
     a = st.selectbox(i.title(), options=datas[i].unique())
     lis.append([a])
-user_input0 = st.text_area("Enter the dish liked by the people .")
+# user_input0 = st.text_area("Enter the dish liked by the people .")
 user_input1 = st.text_area("Enter the cuisined had by zomato  restuarent.")
-user_input0 = preprocess_dish(user_input0)
+# user_input0 = preprocess_dish(user_input0)
 user_input1 = preprocess_cusin(user_input1)
-lis.append([user_input0])
+# lis.append([user_input0])
 lis.append([user_input1])
-print("List : ",lis)
+
 
 @st.cache_data
-def load_model(f):
-    with open(f, "rb") as f:
-        model = pickle.load(f)
-    return model
-
-
-
+def load_model(preprocessor_path):
+    try:
+        if not os.path.exists(preprocessor_path):
+            raise FileNotFoundError(f"Model file '{preprocessor_path}' not found.")
+        
+        preprocessor = joblib.load(preprocessor_path)
+        logging.info(f"Loaded preprocessor from {preprocessor_path}")
+        return preprocessor
+    except FileNotFoundError:
+        logging.error(f"File '{preprocessor_path}' not found.")
+        return None
+    except Exception as e:
+        logging.error(f"Error loading preprocessor: {str(e)}")
+        return None
 
 
 
@@ -75,7 +85,7 @@ if st.button('Predict Rating :'):
     preprocessor = load_model(preprocessor_path)
     df = preprocessor.transform(df)
     prediction = model.predict(df)
-    st.write(f"Prediction of the rating of the zomato restuarent :{prediction[0][0] : .2f} * Rating has been given .")
+    st.write(f"Prediction of the rating of the zomato restuarent : {prediction[0]:.2f} * Rating has been given .")
 
 
 
