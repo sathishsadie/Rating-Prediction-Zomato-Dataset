@@ -1,44 +1,53 @@
 # Rating-Prediction-Zomato-Dataset
+This project predicts the rating of the restuarent based on the features given to it.
+
+
+(Dataset Link)[https://www.kaggle.com/datasets/himanshupoddar/zomato-bangalore-restaurants]
+
 
 ## Dataset Overview
 
-The dataset used for this project is sourced from Zomato, a popular restaurant discovery and food delivery platform. The dataset includes various features that provide detailed information about the restaurants, such as customer votes, cost estimates, and other attributes. The aim of this project is to predict the ratings of restaurants based on these features.
+The dataset is used here for the rating-prediction has been taken from the kaggle. The dataset contains the information about the zomato restuarent where it was located, how many reviews has been given, thier liked dishes, does it has online order?, cuisines, rating given to the restuarent, Cost for the two people these was the information given in the dataset.
 
-### Features Description
 
-#### Numerical Features
-1. **votes**: 
-   - **Description**: The number of votes a restaurant has received from customers. This feature reflects the popularity and customer engagement of the restaurant.
-   - **Example**: 250, 1000
 
-2. **approx_cost(for two people)**: 
-   - **Description**: The approximate cost for two people to dine at the restaurant. This feature provides an insight into the pricing level of the restaurant.
-   - **Example**: 500, 1500
+### Features are 
+**1.online_order** -> does the restuarent has online order or not.
+**2.book_table** -> does the restuarent has booking facility.
+**3.votes** -> No of votes has been given to the restuarent.
+**4.rest_type** -> does the restuarent has rest_type or not?.
+**5.cuisines** -> Cuisine the restuarent had .
+**6.approx_cost(for two people)** -> Cost for eating two people.
+**7.listed_in(city)** -> which area the restuarent was located.
 
-#### Categorical Features
-1. **online_order**: 
-   - **Description**: Indicates whether the restaurant offers online ordering.
-   - **Values**: 'Yes', 'No'
-   - **Example**: Yes
 
-2. **book_table**: 
-   - **Description**: Indicates whether the restaurant allows table booking.
-   - **Values**: 'Yes', 'No'
-   - **Example**: No
+## Steps to Get Started
 
-3. **rest_type**: 
-   - **Description**: The type of restaurant, indicating the dining style and service model.
-   - **Example**: 'Casual Dining', 'Cafe', 'Quick Bites'
+Step 1: Clone the Repository
+Clone the repository using the following command:
 
-4. **listed_in(type)**: 
-   - **Description**: The type or category of the restaurant listing.
-   - **Example**: 'Buffet', 'Delivery', 'Drinks & nightlife'
+```bash
+https://github.com/sathishsadie/Rating-Prediction-Zomato-Dataset.git
+```
+Step 2: Change Directory
+Navigate to the cloned repository directory:
 
-5. **listed_in(city)**: 
-   - **Description**: The city where the restaurant is located. This feature helps in understanding the geographical distribution and regional preferences.
-   - **Example**: 'Bangalore', 'Mumbai'
+```bash
+cd Rating-Prediction-Zomato-Dataset
+```
 
-#### Text Feature
-1. **cuisines**: 
-   - **Description**: The cuisines offered by the restaurant. This feature provides a variety of food options available at the restaurant.
-   - **Example**: 'Italian, Chinese', 'North Indian, Mughlai'
+Step 3: Install Requirements
+Install the necessary dependencies using the requirements.txt file:
+
+```bash 
+pip install -r requirements.txt
+```
+
+Step 4: Run the Streamlit App
+Launch the Streamlit app to make predictions:
+```bash
+streamlit run app.py
+```
+
+Step 5: Use the Web App
+Open the web app in your browser input the movie name and get recommendations.

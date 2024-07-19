@@ -9,7 +9,6 @@ from sklearn.preprocessing import OrdinalEncoder, StandardScaler
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import PCA
 from sklearn.base import TransformerMixin, BaseEstimator
-import joblib
 from src.exception import CustomException
 from src.logger import logging
 from dataclasses import dataclass

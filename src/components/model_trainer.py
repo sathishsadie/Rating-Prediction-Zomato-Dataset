@@ -8,7 +8,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsRegressor
-
+from xgboost import XGBRegressor
 from src.exception import CustomException
 from src.logger import logging 
 from src.utils import save_object,evaluate_models
@@ -39,14 +39,15 @@ class ModelTrainer:
                 # 'SVR': SVR(),
                 # 'AdaBoost Regressor': AdaBoostRegressor(),
                 # 'Gradient Boosting': GradientBoostingRegressor()
-                'KNN':KNeighborsRegressor()
+                'KNN':KNeighborsRegressor(),
+                'xgboost':XGBRegressor(),
                 }
             
             params={
                 "Decision Tree": {
                     'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
-                    # 'splitter':['best','random'],
-                    # 'max_features':['sqrt','log2'],
+                    'splitter':['best','random'],
+                    'max_features':['sqrt','log2'],
                 },
                 # "Random Forest":{
                 #     # 'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
@@ -54,22 +55,33 @@ class ModelTrainer:
                 #     # 'max_features':['sqrt','log2',None],
                 #     'n_estimators': [8,16,32,64,128,256]
                 # },
-                # "Gradient Boosting":{
-                #     # 'loss':['squared_error', 'huber', 'absolute_error', 'quantile'],
-                #     'learning_rate':[.1,.01,.05,.001],
-                #     'subsample':[0.6,0.7,0.75,0.8,0.85,0.9],
-                #     # 'criterion':['squared_error', 'friedman_mse'],
-                #     # 'max_features':['auto','sqrt','log2'],
-                #     'n_estimators': [8,16,32,64,128,256]
-                # },
+                "Gradient Boosting":{
+                    # 'loss':['squared_error', 'huber', 'absolute_error', 'quantile'],
+                    'learning_rate':[.1,.01,.05,.001],
+                    'subsample':[0.6,0.7,0.75,0.8,0.85,0.9],
+                    # 'criterion':['squared_error', 'friedman_mse'],
+                    # 'max_features':['auto','sqrt','log2'],
+                    'n_estimators': [8,16,32,64,128,256]
+                },
                 "Linear Regression":{},
                 "KNN":{
-                        'n_neighbors': [3, 5, 7, 9, 11],
-                        # 'weights': ['uniform', 'distance'],
-                        # 'algorithm': ['auto', 'ball_tree', 'kd_tree', 'brute'],
-                        # 'leaf_size': [20, 30, 40, 50],
-                        # 'p': [1, 2],
-                        # 'metric': ['minkowski', 'euclidean', 'manhattan']
+                        'n_neighbors': [3, 5, 7, 9, 11]
+                #         'weights': ['uniform', 'distance'],
+                #         'algorithm': ['auto', 'ball_tree', 'kd_tree', 'brute'],
+                #         'leaf_size': [20, 30, 40, 50],
+                #         'p': [1, 2],
+                #         'metric': ['minkowski', 'euclidean', 'manhattan']
+                },
+                "xgboost":{
+                    'n_estimators': [50, 100, 150],  # Fewer trees to reduce complexity
+                    'learning_rate': [0.01, 0.1],  # Smaller learning rates
+                    'max_depth': [3, 5],  # Shallower trees
+                    'min_child_weight': [1, 2],
+                   'subsample': [0.7, 0.8],
+                    'colsample_bytree': [0.7, 0.8],
+                    'gamma': [0, 0.1],
+                    'lambda': [0, 1],
+                    'alpha': [0, 0.1],
                 }
             }
 

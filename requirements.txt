@@ -1,0 +1,8 @@
+scikit-learn
+streamlit
+logging
+pickle
+joblib
+
+
+-e.
