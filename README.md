@@ -3,6 +3,8 @@ This project predicts the rating of the restuarent based on the features given t
 
 
 [Dataset Link](https://www.kaggle.com/datasets/himanshupoddar/zomato-bangalore-restaurants/)
+![](imagess/zom.png)
+
 
 
 ## Dataset Overview
